@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = 'zuk+l!9uka)wps2quw#fpe2e9e4+xwie4i1m*q4*wynm74od%0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'aryayogam.herokuapp.com', 'localhost']
 
 # HTTP Settings
 # SESSION_COOKIE_SECURE
