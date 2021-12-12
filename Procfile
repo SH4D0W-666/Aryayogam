@@ -1,0 +1,1 @@
+web: gunicorn Aryayogam.wsgi --log-file -
