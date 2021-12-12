@@ -124,7 +124,6 @@ html[xmlns] .flexslider .slides {
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  /* background: url(../images/img-sprite.html) -149px -6px ; */
   text-indent: -9999px ;
 }
 .flex-direction-nav .flex-prev {
@@ -132,7 +131,6 @@ html[xmlns] .flexslider .slides {
 }
 .flex-direction-nav .flex-next {
   right: -50px;
-  /* background: url(../images/img-sprite.html) -184px -6px ; */
 }
 .flexslider:hover .flex-direction-nav .flex-prev {
   opacity: 0.7;
