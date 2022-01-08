@@ -30,9 +30,10 @@ def register(request):
                 new_user = form.save()
                 messages.add_message(request,messages.SUCCESS,"Successfully created an User!")
                 return HttpResponseRedirect("/profiles/")
+
         else:
             form = UserCreationForm()
-
+                    
     return render(request, "registration/register.html", {
         'form': form,
     })
@@ -52,13 +53,13 @@ def login_user(request):
                 login(request, user)
                 messages.add_message(request,messages.SUCCESS,"Logged in successfully!")
                 return HttpResponseRedirect('/profiles/')
-            else: return HttpResponse("You're account is disabled.")
+            else: 
+                return HttpResponse("You're account is disabled.")
         else:
             messages.error(request,"username or Password invalid. Please try again!")
             return render(request, 'login.html')
 
     return render(request, 'login.html')
-
 
 @login_required(login_url='/login/')
 def logout_view(request):
@@ -184,25 +185,25 @@ def profile_create(request):
         if queryset:
             messages.error(request, "You have already created a profile!")
             return HttpResponseRedirect('/profiles/myprofile/')
-
-        form = Profileregister(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.user = request.user
-            instance.save()
-            if instance.pId == "AMS":
-                instance.pId = "AMS" + "00" + str(instance.tmId)
+   
+        if request.method == 'POST':
+            form = Profileregister(request.POST, request.FILES or None)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.user = request.user
                 instance.save()
-            messages.add_message(request,messages.SUCCESS,"Successfully created a profile!")
-            return HttpResponseRedirect("/profiles/myprofile")
+                if instance.pId == "AMS":
+                    instance.pId = "AMS" + "00" + str(instance.tmId)
+                    instance.save()
+                messages.add_message(request,messages.SUCCESS,"Successfully created a profile!")
+                return HttpResponseRedirect("/profiles/myprofile")
         else:
-            form = Profileregister(request.POST or None, request.FILES or None)
-    content = {
-        "form": form,
+            form = Profileregister()
+    
+    return render(request, "register.html", {
+        'form': form,
         "title": "Create/Register"
-    }
-
-    return render(request, "register.html", content)
+    })
 
 
 def profile_detail(request, slug=None):
@@ -242,7 +243,7 @@ def my_profile(request):
         username = request.user.id
         instance1 = profiles.objects.filter(user = int(username))#get_object_or_404(profiles, user = int(username))
         if not instance1:
-            messages.add_message(request,messages.ERROR,"Please create an Profile!")
+            messages.add_message(request,messages.ERROR,"Please create a Profile!")
             return HttpResponseRedirect("/profiles/create/")
         instance = get_object_or_404(profiles, user = int(username))
 

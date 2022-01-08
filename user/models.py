@@ -20,7 +20,7 @@ class profiles(models.Model):
     pId = models.CharField(max_length=10, default='AMS')
     slug = models.SlugField(unique=True)
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to= upload_location,null=True, blank=True,default="/media/default/profile.jpg")
+    image = models.ImageField(upload_to= upload_location,null=True, blank=True,default="default/images/profile.jpg")
     thumbnail = ImageSpecField(
 
         source='image', processors=[SmartResize(600,600)],format='JPEG',
